@@ -244,6 +244,36 @@ public class RegExTest {
 		matcher = pattern.matcher(input);
 		checkMatcher(matcher);
 
+		String EXAMPLE = "300.200";
+		System.out.println("\nInput: " + EXAMPLE);
+		String strPattern = "(\\d+).?(\\d+)?";
+		System.out.println("Pattern: " + strPattern);
+		pattern = Pattern.compile(strPattern);
+		matcher = pattern.matcher(EXAMPLE);
+		matcher.find();
+		System.out.println(matcher.group(1));
+		System.out.println(matcher.group(2));
+		EXAMPLE = "300.";
+		System.out.println("\nInput: " + EXAMPLE);
+		matcher = pattern.matcher(EXAMPLE);
+		matcher.find();
+		System.out.println(matcher.group(1));
+		System.out.println(matcher.group(2));
+		EXAMPLE = "3123";
+		System.out.println("\nInput: " + EXAMPLE);
+		matcher = pattern.matcher(EXAMPLE);
+		matcher.find();
+		System.out.println(matcher.group(1));
+		System.out.println(matcher.group(2));
+
+		// Group naming
+		System.out.println("\nGroup naming");
+		String gr1 = "gr1", gr2 = "gr2", gr3 = "gr3";
+		String textToSearch = "prvi red\n nesto samo nesto Fan Speed 3 jos nesto sitno\n i za kraj";
+		pattern = Pattern.compile("Fan Speed (?<" + gr3 + ">\\d)");
+		matcher = pattern.matcher(textToSearch);
+		checkMatcher(matcher);
+
 		System.out.println("\nBoundary Matchers");
 //		^  - the beginnig of a line
 //		$  - the end of the line
@@ -343,9 +373,9 @@ public class RegExTest {
 //		pat = "[\b\B]dog[\b\B]"; /does not work
 
 		// remove white spaces between a word character and .or,
-		String EXAMPLE = "   .Some    .example   Test    .string";
-		String strPattern = "(\\w)(\\s+)([.,])";// find word character followed by one or more spaces and end with . or
-												// ,
+		EXAMPLE = "   .Some    .example   Test    .string";
+		strPattern = "(\\w)(\\s+)([.,])";// find word character followed by one or more spaces and end with . or
+											// ,
 		System.out.println("\nInput: " + EXAMPLE);
 		System.out.println("Pattern: " + strPattern);
 		System.out.println(EXAMPLE.replaceAll(strPattern, "$1$3"));
@@ -409,31 +439,6 @@ public class RegExTest {
 //		pattern = Pattern.compile("[a{3}]"); //neradi
 		pattern = Pattern.compile("a{3}");
 		matcher = pattern.matcher(EXAMPLE);
-		checkMatcher(matcher);
-
-		EXAMPLE = "300.200";
-		System.out.println("\nInput: " + EXAMPLE);
-		strPattern = "(\\d+).?(\\d+)?";
-		System.out.println("Pattern: " + strPattern);
-		pattern = Pattern.compile(strPattern);
-		matcher = pattern.matcher(EXAMPLE);
-		matcher.find();
-		System.out.println(matcher.group(1));
-		System.out.println(matcher.group(2));
-		matcher = pattern.matcher("300.");
-		matcher.find();
-		System.out.println(matcher.group(1));
-		System.out.println(matcher.group(2));
-		matcher = pattern.matcher("3123");
-		matcher.find();
-		System.out.println(matcher.group(1));
-		System.out.println(matcher.group(2));
-
-		// Group naming
-		String gr1 = "gr1", gr2 = "gr2", gr3 = "gr3";
-		String textToSearch = "prvi red\n nesto samo nesto Fan Speed 3 jos nesto sitno\n i za kraj";
-		pattern = Pattern.compile("Fan Speed (?<" + gr3 + ">\\d)");
-		matcher = pattern.matcher(textToSearch);
 		checkMatcher(matcher);
 
 	}
